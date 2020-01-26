@@ -10,11 +10,10 @@ def eating_cookies(n, cache=cache):
   # BASE CASES
   if n < 1:
     return 1
-  if n in cache:
-    return cache[n]
-  else:
+  if n not in cache:
     cache[n] = eating_cookies(n-1) + eating_cookies(n-2) + eating_cookies(n-3)
     return cache[n]
+  return cache[n]
 
 if __name__ == "__main__":
   if len(sys.argv) > 1:
