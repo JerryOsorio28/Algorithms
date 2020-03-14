@@ -3,35 +3,27 @@
 import math
 
 def recipe_batches(recipe, ingredients):
-	#make temp dic to hold counter whenever ingredients value > recipe's values
-	temp = {}
-	#setting temp length for while loop
-	boolean = True
-	#iterator to create a key/value pair dic to be equal to 0 
-	for i in recipe:
-		temp[i] = 0
-	#check first if length of recipe > length of ingredients, if not, return 0
-	if len(recipe) > len(ingredients):
+	# BASE CASES
+	if len(ingredients) != len(recipe):
 		return 0
-	else:
-		#while loop that runs as long as ingredient's value is < recipe's value
-		while boolean: 
-			#iterate through the recipe list with a loop
-			for key in recipe:
-				#checks if ingredient's value is >= recipe's value
-				if ingredients[key] >= recipe[key]:
-					#counts up the value of key atm by 1
-					temp[key] += 1
-					#sets the ingredient's value atm to be the substraction of both the ingredient's value and the recipe value
-					ingredients[key] = ingredients[key] - recipe[key]
-				#if ingredient's value is < than recipe's value, break out of the loop
-				else:
-					boolean = False
-		#since we want to return the minimum value in the temp dictionary, we need to convert the dictionary to a list first, then use the min() method.
-		result = list(temp.values())
-		return min(result)
-		
-# recipe_batches({ 'milk': 100, 'butter': 50, 'flour': 5 }, { 'milk': 132, 'butter': 48, 'flour': 51 })
+	# we need a counter to keep a track of how many batches can be done
+	batches = 0
+
+	# we need to iterate to access key/value for both recipe and ingredients
+	for ingredient in recipe:
+		# as long as we have enough ingredients, keep going!
+		while ingredients[ingredient] >= recipe[ingredient]:
+			# we check if ingredients current value is greater than recipe current value
+			if(ingredients[ingredient] >= recipe[ingredient]):
+				# if it is, we subtract ingredients value and the recipe value and increase counter by 1.
+				ingredients[ingredient] -= recipe[ingredient]
+				batches += 1
+			# we check if the number of batches is equal/greater than the length of the recipe, if it is we divide by the length of the recipe
+			if(batches >= len(recipe)):
+				batches //= len(recipe)
+	return batches
+  
+
 
 if __name__ == '__main__':
   # Change the entries of these dictionaries to test 
